@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load add_attr %}
+
+{% block title %} Login {% endblock %}
+{% block login %} active {% endblock %}
+{% block body %}
+<!-- <h1 class="text-center">Please Login</h1>
+<br>
+<br>
+<br> -->
+<form action="/accounts/login/" method="POST" >
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group col-md-6 offset-md-3">
+                <label>{{field.label_tag}}</label>
+                {{ field | add_attr:"class:form-control" }}
+                <small class="form-text text-muted">{{field.help_text}}</small>
+         </div>
+    {% endfor %}
+    <div class = "form-group col-md-4 offset-md-4"><button type="submit" class="btn btn-info offset-sm-4">SUBMIT</button></div>
+</form>
+
+{% endblock %}
+

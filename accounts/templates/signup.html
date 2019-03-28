@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load add_attr %}
+
+{% block title %} Login {% endblock %}
+{% block signup %} active {% endblock %}
+
+{% block body %}
+<form action="/accounts/signup/" method="POST" class="col-md-6 offset-md-3">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+    {% for field in form.visible_fields %}
+    <div class="form-group ">
+        <label>{{field.label_tag}}</label>
+        {{ field | add_attr:"class:form-control" }}
+        <small class="form-text text-muted">{{field.help_text}}</small>
+        {% if field.errors %}    
+        <small class="form-text text-danger">{{field.errors | striptags}}</small>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <div class="form-group col-md-4 offset-md-4"><button type="submit" class="btn btn-info offset-sm-4">SUBMIT</button>
+    </div>
+</form>
+
+{% endblock %}
